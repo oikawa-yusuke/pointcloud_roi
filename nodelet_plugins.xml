@@ -4,9 +4,9 @@
     Detect red region of interest in pointcloud.
     </description>
   </class>
-  <class name="pointcloud_roi/FilterDetectedRoi" type="pointcloud_roi::FilterDetectedRoiNodelet" base_class_type="nodelet::Nodelet">
+  <!-- <class name="pointcloud_roi/FilterDetectedRoi" type="pointcloud_roi::FilterDetectedRoiNodelet" base_class_type="nodelet::Nodelet">
     <description>
     Detect ROI from neural network detection in pointcloud.
     </description>
-  </class>
+  </class> -->
 </library>
