@@ -11,6 +11,8 @@
 #include <pcl/pcl_base.h>
 #include <pcl/point_types.h>
 #include <sensor_msgs/PointCloud2.h>
+#include <geometry_msgs/PoseArray.h>
+#include <geometry_msgs/Pose.h>
 #include <string>
 
 namespace pointcloud_roi
@@ -33,6 +35,7 @@ private:
   ros::Publisher pc_roi_pub;
   ros::Publisher roi_only_pub;
   ros::Publisher nonroi_only_pub;
+  ros::Publisher roi_points_pub_;
 
   pcl::IndicesConstPtr filterRed(pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr input, pcl::PointCloud<pcl::PointXYZRGB>::Ptr output = nullptr);
 };
