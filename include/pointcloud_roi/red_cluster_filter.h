@@ -10,6 +10,7 @@
 #include <tf2_ros/message_filter.h>
 #include <pcl/pcl_base.h>
 #include <pcl/point_types.h>
+#include <pcl/filters/voxel_grid.h>
 #include <sensor_msgs/PointCloud2.h>
 #include <geometry_msgs/PoseArray.h>
 #include <geometry_msgs/Pose.h>
@@ -36,6 +37,14 @@ private:
   ros::Publisher roi_only_pub;
   ros::Publisher nonroi_only_pub;
   ros::Publisher roi_points_pub_;
+
+  ros::Time time_, last_time_;
+
+  // pcl voxel grid
+  pcl::VoxelGrid<pcl::PointXYZRGB> vg_;
+
+  // param
+  double leafsize_;
 
   pcl::IndicesConstPtr filterRed(pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr input, pcl::PointCloud<pcl::PointXYZRGB>::Ptr output = nullptr);
 };

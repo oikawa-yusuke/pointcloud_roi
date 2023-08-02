@@ -14,7 +14,7 @@
 namespace pointcloud_roi
 {
 
-RedClusterFilter::RedClusterFilter(ros::NodeHandle &nhp)
+RedClusterFilter::RedClusterFilter(ros::NodeHandle &nhp) : leafsize_(0.005)
 {
   target_frame = nhp.param<std::string>("map_frame", "world");
   //bool transform_to_map_frame = nhp.param<bool>("publish_separate_clouds", false);
@@ -30,6 +30,9 @@ RedClusterFilter::RedClusterFilter(ros::NodeHandle &nhp)
   roi_only_pub = nhp.advertise<pcl::PointCloud<pcl::PointXYZRGB>>("roi_cloud", 1);
   nonroi_only_pub = nhp.advertise<pcl::PointCloud<pcl::PointXYZRGB>>("nonroi_cloud", 1);
   roi_points_pub_ = nhp.advertise<geometry_msgs::PoseArray>("roi_point_array", 1);
+
+  time_ = ros::Time::now();
+  last_time_ = time_;
 
 }
 
@@ -67,6 +70,12 @@ void RedClusterFilter::filter(const sensor_msgs::PointCloud2ConstPtr &pc)
   pcl::PointCloud<pcl::PointXYZRGB>::Ptr pcl_cloud(new pcl::PointCloud<pcl::PointXYZRGB>);
   pcl::fromROSMsg(*pc, *pcl_cloud);
 
+  // down sampling
+  pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr myConstCloud = pcl_cloud;
+  vg_.setInputCloud(pcl_cloud);
+  vg_.setLeafSize(leafsize_, leafsize_, leafsize_);
+  vg_.filter(*pcl_cloud);
+
   pcl::IndicesConstPtr redIndices = filterRed(pcl_cloud);
 
   geometry_msgs::TransformStamped pcFrameTf;
@@ -84,12 +93,23 @@ void RedClusterFilter::filter(const sensor_msgs::PointCloud2ConstPtr &pc)
   static Eigen::Isometry3d lastTfEigen;
   Eigen::Isometry3d tfEigen = tf2::transformToEigen(pcFrameTf);
 
+  time_ = ros::Time::now();
   if (tfEigen.isApprox(lastTfEigen, 1e-2)) // Publish separate clouds only if not moved
   {
     const auto [inlier_cloud, outlier_cloud] = separateCloudByIndices<pcl::PointXYZRGB>(pcl_cloud, redIndices);
     roi_only_pub.publish(*inlier_cloud);
     //nonroi_only_pub.publish(*outlier_cloud);
+  } else {
+    last_time_ = time_;
+  }
+  lastTfEigen = tfEigen;
 
+  pcl::transformPointCloud(*pcl_cloud, *pcl_cloud, tfEigen.matrix());
+
+  ros::Duration ros_duration = time_ - last_time_;
+  if (ros_duration.sec > 1.0) // 直前の移動からros時間で１秒経過したら
+  {
+    const auto [inlier_cloud, outlier_cloud] = separateCloudByIndices<pcl::PointXYZRGB>(pcl_cloud, redIndices);
     geometry_msgs::PoseArray roi_points;
     roi_points.header.stamp = pc->header.stamp;
     roi_points.header.frame_id = target_frame;
@@ -104,9 +124,6 @@ void RedClusterFilter::filter(const sensor_msgs::PointCloud2ConstPtr &pc)
     }
     roi_points_pub_.publish(roi_points);
   }
-  lastTfEigen = tfEigen;
-
-  pcl::transformPointCloud(*pcl_cloud, *pcl_cloud, tfEigen.matrix());
 
   pcl::PointCloud<pcl::PointXYZRGB>::Ptr pcl_cloud_ds(new pcl::PointCloud<pcl::PointXYZRGB>);
   pcl::VoxelGrid<pcl::PointXYZRGB> vg;
