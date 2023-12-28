@@ -15,6 +15,8 @@
 #include <geometry_msgs/PoseArray.h>
 #include <geometry_msgs/Pose.h>
 #include <string>
+#include <random>
+#include <algorithm>
 
 namespace pointcloud_roi
 {

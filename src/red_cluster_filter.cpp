@@ -57,6 +57,12 @@ pcl::IndicesConstPtr RedClusterFilter::filterRed(pcl::PointCloud<pcl::PointXYZRG
   color_cond->addComparison(pcl::PackedHSIComparison<pcl::PointXYZRGB>::ConstPtr (new pcl::PackedHSIComparison<pcl::PointXYZRGB> ("h", pcl::ComparisonOps::GT, 37)));
   color_cond->addComparison(pcl::PackedHSIComparison<pcl::PointXYZRGB>::ConstPtr (new pcl::PackedHSIComparison<pcl::PointXYZRGB> ("s", pcl::ComparisonOps::LT, 100)));
   color_cond->addComparison(pcl::PackedHSIComparison<pcl::PointXYZRGB>::ConstPtr (new pcl::PackedHSIComparison<pcl::PointXYZRGB> ("i", pcl::ComparisonOps::LT, 100)));
+    // pcl::ConditionOr<pcl::PointXYZRGB>::Ptr color_cond(new pcl::ConditionOr<pcl::PointXYZRGB>);
+  // color_cond->addComparison(pcl::PackedHSIComparison<pcl::PointXYZRGB>::ConstPtr (new pcl::PackedHSIComparison<pcl::PointXYZRGB> ("h", pcl::ComparisonOps::GE, 31)));
+  // color_cond->addComparison(pcl::PackedHSIComparison<pcl::PointXYZRGB>::ConstPtr (new pcl::PackedHSIComparison<pcl::PointXYZRGB> ("h", pcl::ComparisonOps::LE, 60)));
+  // color_cond->addComparison(pcl::PackedHSIComparison<pcl::PointXYZRGB>::ConstPtr (new pcl::PackedHSIComparison<pcl::PointXYZRGB> ("s", pcl::ComparisonOps::GE, 50)));
+  // color_cond->addComparison(pcl::PackedHSIComparison<pcl::PointXYZRGB>::ConstPtr (new pcl::PackedHSIComparison<pcl::PointXYZRGB> ("i", pcl::ComparisonOps::GE, 70)));
+
 
   pcl::ConditionalRemoval<pcl::PointXYZRGB> condrem(true);
   condrem.setInputCloud(input);
@@ -107,7 +113,7 @@ void RedClusterFilter::filter(const sensor_msgs::PointCloud2ConstPtr &pc)
   pcl::transformPointCloud(*pcl_cloud, *pcl_cloud, tfEigen.matrix());
 
   ros::Duration ros_duration = time_ - last_time_;
-  if (ros_duration.sec > 1.0) // 直前の移動からros時間で１秒経過したら
+  if (ros_duration.sec > 0.5) // 直前の移動からros時間で0.5秒経過したら
   {
     const auto [inlier_cloud, outlier_cloud] = separateCloudByIndices<pcl::PointXYZRGB>(pcl_cloud, redIndices);
     geometry_msgs::PoseArray roi_points;
@@ -122,13 +128,17 @@ void RedClusterFilter::filter(const sensor_msgs::PointCloud2ConstPtr &pc)
 
       roi_points.poses.push_back(roi_point);
     }
+    std::mt19937_64 get_rand_mt; // 64bit版メルセンヌ・ツイスタ
+    std::shuffle( roi_points.poses.begin(), roi_points.poses.end(), get_rand_mt );
+    if (roi_points.poses.size() > 100)
+      roi_points.poses.resize(100); // 数が増えすぎると処理が重くなるので500娘に制限
     roi_points_pub_.publish(roi_points);
   }
 
   pcl::PointCloud<pcl::PointXYZRGB>::Ptr pcl_cloud_ds(new pcl::PointCloud<pcl::PointXYZRGB>);
   pcl::VoxelGrid<pcl::PointXYZRGB> vg;
   vg.setInputCloud (pcl_cloud);
-  vg.setLeafSize (0.01f, 0.01f, 0.01f);
+  vg.setLeafSize (0.01, 0.01f, 0.01f);
   //vg.setSaveLeafLayout(true);
   vg.filter (*pcl_cloud_ds);
 
