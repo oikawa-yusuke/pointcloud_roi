@@ -1,0 +1,17 @@
+"filename", "language", "C++", "Markdown", "XML", "CMake", "comment", "blank", "total"
+"/Users/oikawayuusuke/Documents/github/pointcloud_roi/CMakeLists.txt", "CMake", 0, 0, 0, 44, 153, 36, 233
+"/Users/oikawayuusuke/Documents/github/pointcloud_roi/README.md", "Markdown", 0, 5, 0, 0, 0, 5, 10
+"/Users/oikawayuusuke/Documents/github/pointcloud_roi/include/pointcloud_roi/detected_roi_filter.h", "C++", 63, 0, 0, 0, 1, 15, 79
+"/Users/oikawayuusuke/Documents/github/pointcloud_roi/include/pointcloud_roi/filter_nodelet.h", "C++", 19, 0, 0, 0, 0, 8, 27
+"/Users/oikawayuusuke/Documents/github/pointcloud_roi/include/pointcloud_roi/red_cluster_filter.h", "C++", 42, 0, 0, 0, 2, 13, 57
+"/Users/oikawayuusuke/Documents/github/pointcloud_roi/include/pointcloud_roi/utils.h", "C++", 38, 0, 0, 0, 0, 6, 44
+"/Users/oikawayuusuke/Documents/github/pointcloud_roi/launch/red_cluster.launch", "XML", 0, 0, 8, 0, 5, 1, 14
+"/Users/oikawayuusuke/Documents/github/pointcloud_roi/nodelet_plugins.xml", "XML", 0, 0, 7, 0, 5, 1, 13
+"/Users/oikawayuusuke/Documents/github/pointcloud_roi/package.xml", "XML", 0, 0, 27, 0, 37, 12, 76
+"/Users/oikawayuusuke/Documents/github/pointcloud_roi/src/detected_roi_filter.cpp", "C++", 229, 0, 0, 0, 35, 27, 291
+"/Users/oikawayuusuke/Documents/github/pointcloud_roi/src/filter_detected_roi_node.cpp", "C++", 9, 0, 0, 0, 0, 5, 14
+"/Users/oikawayuusuke/Documents/github/pointcloud_roi/src/filter_red_clusters_node.cpp", "C++", 9, 0, 0, 0, 0, 5, 14
+"/Users/oikawayuusuke/Documents/github/pointcloud_roi/src/nodelets.cpp", "C++", 8, 0, 0, 0, 3, 3, 14
+"/Users/oikawayuusuke/Documents/github/pointcloud_roi/src/red_cluster_filter.cpp", "C++", 117, 0, 0, 0, 22, 24, 163
+"/Users/oikawayuusuke/Documents/github/pointcloud_roi/src/visualize_pwr.cpp", "C++", 70, 0, 0, 0, 0, 15, 85
+"Total", "-", 604, 5, 42, 44, 263, 176, 1134

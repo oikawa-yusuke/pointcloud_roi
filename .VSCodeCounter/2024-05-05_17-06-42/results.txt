@@ -1,0 +1,47 @@
+Date : 2024-05-05 17:06:42
+Directory : /Users/oikawayuusuke/Documents/github/pointcloud_roi
+Total : 15 files,  695 codes, 263 comments, 176 blanks, all 1134 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| C++      |         10 |        604 |         63 |        121 |        788 |
+| CMake    |          1 |         44 |        153 |         36 |        233 |
+| XML      |          3 |         42 |         47 |         14 |        103 |
+| Markdown |          1 |          5 |          0 |          5 |         10 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                              | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                 |         15 |        695 |        263 |        176 |      1,134 |
+| . (Files)                                                                                         |          4 |         83 |        195 |         54 |        332 |
+| include                                                                                           |          4 |        162 |          3 |         42 |        207 |
+| include/pointcloud_roi                                                                            |          4 |        162 |          3 |         42 |        207 |
+| launch                                                                                            |          1 |          8 |          5 |          1 |         14 |
+| src                                                                                               |          6 |        442 |         60 |         79 |        581 |
++---------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                          | language | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| /Users/oikawayuusuke/Documents/github/pointcloud_roi/CMakeLists.txt                               | CMake    |         44 |        153 |         36 |        233 |
+| /Users/oikawayuusuke/Documents/github/pointcloud_roi/README.md                                    | Markdown |          5 |          0 |          5 |         10 |
+| /Users/oikawayuusuke/Documents/github/pointcloud_roi/include/pointcloud_roi/detected_roi_filter.h | C++      |         63 |          1 |         15 |         79 |
+| /Users/oikawayuusuke/Documents/github/pointcloud_roi/include/pointcloud_roi/filter_nodelet.h      | C++      |         19 |          0 |          8 |         27 |
+| /Users/oikawayuusuke/Documents/github/pointcloud_roi/include/pointcloud_roi/red_cluster_filter.h  | C++      |         42 |          2 |         13 |         57 |
+| /Users/oikawayuusuke/Documents/github/pointcloud_roi/include/pointcloud_roi/utils.h               | C++      |         38 |          0 |          6 |         44 |
+| /Users/oikawayuusuke/Documents/github/pointcloud_roi/launch/red_cluster.launch                    | XML      |          8 |          5 |          1 |         14 |
+| /Users/oikawayuusuke/Documents/github/pointcloud_roi/nodelet_plugins.xml                          | XML      |          7 |          5 |          1 |         13 |
+| /Users/oikawayuusuke/Documents/github/pointcloud_roi/package.xml                                  | XML      |         27 |         37 |         12 |         76 |
+| /Users/oikawayuusuke/Documents/github/pointcloud_roi/src/detected_roi_filter.cpp                  | C++      |        229 |         35 |         27 |        291 |
+| /Users/oikawayuusuke/Documents/github/pointcloud_roi/src/filter_detected_roi_node.cpp             | C++      |          9 |          0 |          5 |         14 |
+| /Users/oikawayuusuke/Documents/github/pointcloud_roi/src/filter_red_clusters_node.cpp             | C++      |          9 |          0 |          5 |         14 |
+| /Users/oikawayuusuke/Documents/github/pointcloud_roi/src/nodelets.cpp                             | C++      |          8 |          3 |          3 |         14 |
+| /Users/oikawayuusuke/Documents/github/pointcloud_roi/src/red_cluster_filter.cpp                   | C++      |        117 |         22 |         24 |        163 |
+| /Users/oikawayuusuke/Documents/github/pointcloud_roi/src/visualize_pwr.cpp                        | C++      |         70 |          0 |         15 |         85 |
+| Total                                                                                             |          |        695 |        263 |        176 |      1,134 |
++---------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
